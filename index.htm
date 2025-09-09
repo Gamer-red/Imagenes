@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MindAR AR desde CDN</title>
+
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+    <!-- MindAR para A-Frame desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+
+    <!-- Estilos MindAR -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.css"
+    />
+  </head>
+  <body>
+    <!-- Escena de AR -->
+    <a-scene
+      mindar-image="imageTargetSrc: ./assets/targets.mind; autoStart: true;"
+      color-space="sRGB"
+      embedded
+      vr-mode-ui="false"
+      device-orientation-permission-ui="auto"
+    >
+      <a-assets>
+        <!-- Modelo GLB (o cualquier otro asset) -->
+        <a-asset-item id="modelo" src="./assets/Bandera.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Cámara AR -->
+      <a-camera position="0 0 0" look-controls="false"></a-camera>
+
+      <!-- Contenido que aparece cuando se detecta el marcador -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model
+          src="#modelo"
+          position="0 0 0"
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0"
+        ></a-gltf-model>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
