@@ -1,35 +1,18 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>MindAR Cámara Activada</title>
-
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-
-  <!-- MindAR librería base -->
-  <script src="https://unpkg.com/mind-ar@1.1.5/dist/mindar.prod.js"></script>
-
-  <!-- MindAR para A-Frame -->
-  <script src="https://unpkg.com/mind-ar@1.1.5/dist/mindar-image-aframe.prod.js"></script>
-
-  <!-- Estilos MindAR -->
-  <link rel="stylesheet" href="https://unpkg.com/mind-ar@1.1.5/dist/mindar-image-aframe.prod.css" />
-</head>
-<body>
-  <a-scene
-    mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@master/examples/image-tracking/assets/targets.mind; autoStart: true;"
-    color-space="sRGB"
-    vr-mode-ui="false"
-    device-orientation-permission-ui="auto"
-  >
-    <!-- Cámara en posición 0 0 0, sin look-controls para evitar movimiento -->
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-    <!-- Un cubo rojo para mostrar que está detectando el marcador -->
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-box position="0 0.5 0" material="color: red;"></a-box>
-    </a-entity>
-  </a-scene>
-</body>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: https://drive.google.com/uc?export=download&id=1DTmH3tHKyWsnrOzI-AXvzrSH1rw6RQS7;" 
+             embedded 
+             color-space="sRGB" 
+             vr-mode-ui="enabled: false" 
+             device-orientation-permission-ui="enabled: true">
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex:0">
+      <a-sphere position="0 0 0" radius="0.25" color="#EF2D5E"></a-sphere>
+      </a-entity>
+    </a-scene>
+  </body>
 </html>
