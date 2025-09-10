@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiencia Mundial - México</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>Mundial - México</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <link rel="stylesheet" href="index.css">
@@ -11,10 +11,10 @@
 <body>
     <div id="intro-screen">
         <div class="logo"></div>
-        <h1>¡Bienvenido al Próximo Mundial!</h1>
+        <h1>¡Bienvenido al Mundial!</h1>
         <p>Vive una experiencia de realidad aumentada con la emoción del fútbol mundial. Apunta con tu cámara al marcador oficial para comenzar.</p>
-        <button id="start-button">Comenzar Experiencia</button>
-        <p class="instructions">Asegúrate de permitir el acceso a tu cámara cuando te lo solicite</p>
+        <button id="start-button">Comenzar</button>
+        <p class="instructions">Permite el acceso a tu cámara cuando te lo solicite</p>
     </div>
 
     <div id="scanning-indicator">
@@ -27,43 +27,29 @@
     </div>
 
     <div id="info-panel">
+        <button id="close-button">×</button>
         <div class="team-header">
             <div class="team-flag"></div>
             <div class="team-name">MÉXICO</div>
         </div>
         
         <div class="team-info">
-            <div class="info-row">
-                <span class="info-label">Confederación:</span>
-                <span class="info-value">CONCACAF</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Apodo:</span>
-                <span class="info-value">El Tri</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Director técnico:</span>
+            <div class="info-item">
+                <span class="info-label">DT:</span>
                 <span class="info-value">Jaime Lozano</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">Jugador estrella:</span>
+            <div class="info-item">
+                <span class="info-label">Jugador:</span>
                 <span class="info-value">Guillermo Ochoa</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">Participaciones:</span>
-                <span class="info-value">17 Copas del Mundo</span>
+            <div class="info-item">
+                <span class="info-label">Mundiales:</span>
+                <span class="info-value">17</span>
             </div>
-            <div class="info-row">
+            <div class="info-item">
                 <span class="info-label">Mejor resultado:</span>
-                <span class="info-value">Cuartos de final (1970 y 1986)</span>
+                <span class="info-value">Cuartos</span>
             </div>
-        </div>
-        
-        <div id="button-container">
-            <button class="action-button" onclick="showPlayers()">👥 Jugadores Destacados</button>
-            <button class="action-button" onclick="showHistory()">📜 Historia</button>
-            <button class="action-button" onclick="showMatches()">📅 Próximos Partidos</button>
-            <button class="action-button" onclick="closePanel()">✖️ Cerrar</button>
         </div>
     </div>
 

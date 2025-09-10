@@ -1,11 +1,25 @@
 // Variables globales
 let imageScanned = false;
 
+// Detectar si es dispositivo móvil
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 document.addEventListener('DOMContentLoaded', function() {
     const introScreen = document.getElementById('intro-screen');
     const startButton = document.getElementById('start-button');
     const scanningIndicator = document.getElementById('scanning-indicator');
+    const closeButton = document.getElementById('close-button');
     
+    // Optimizar para móviles
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+        // Ajustar tiempo de escaneo para móviles
+        window.scanTime = 2000;
+    } else {
+        window.scanTime = 3000;
+    }
+    
+    // Evento para el botón de comenzar
     startButton.addEventListener('click', function() {
         introScreen.classList.add('hidden');
         scanningIndicator.style.display = 'flex';
@@ -22,114 +36,61 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 500);
         
-        // Simular el escaneo de imagen (en un caso real, se conectaría con los eventos de MindAR)
+        // Simular el escaneo de imagen
         simulateImageScanning();
+    });
+    
+    // Evento para el botón de cerrar
+    closeButton.addEventListener('click', closePanel);
+    
+    // Prevenir acciones por defecto en móviles
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
     });
 });
 
 function simulateImageScanning() {
     // En una aplicación real, esto se conectaría con los eventos de MindAR
-    // Para este ejemplo, simulamos que la imagen se escanea después de 5 segundos
     setTimeout(function() {
         if (!imageScanned) {
             onImageScanned();
         }
-    }, 5000);
+    }, window.scanTime || 2500);
 }
 
 function onImageScanned() {
     imageScanned = true;
     document.getElementById('scanning-indicator').style.display = 'none';
-    document.getElementById('info-panel').style.display = 'flex';
+    document.getElementById('info-panel').style.display = 'block';
     
-    // Opcional: agregar algún efecto a la esfera en RA
+    // Efecto en la esfera de RA
     const sphere = document.getElementById('target-object');
     if (sphere) {
         sphere.setAttribute('color', '#00FF00');
         sphere.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 3000');
     }
-}
-
-// Funciones para los botones
-function showPlayers() {
-    const teamInfo = document.querySelector('.team-info');
-    teamInfo.innerHTML = `
-        <div class="info-row">
-            <span class="info-label">Portero:</span>
-            <span class="info-value">Guillermo Ochoa</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Defensa:</span>
-            <span class="info-value">César Montes</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Mediocampista:</span>
-            <span class="info-value">Edson Álvarez</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Delantero:</span>
-            <span class="info-value">Hirving Lozano</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Joven promesa:</span>
-            <span class="info-value">Marcelo Flores</span>
-        </div>
-    `;
-}
-
-function showHistory() {
-    const teamInfo = document.querySelector('.team-info');
-    teamInfo.innerHTML = `
-        <div class="info-row">
-            <span class="info-label">Primer Mundial:</span>
-            <span class="info-value">1930</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Mundial en casa:</span>
-            <span class="info-value">1970 y 1986</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Partido histórico:</span>
-            <span class="info-value">México 2-0 Alemania (2018)</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Goleador histórico:</span>
-            <span class="info-value">Javier Hernández (52 goles)</span>
-        </div>
-    `;
-}
-
-function showMatches() {
-    const teamInfo = document.querySelector('.team-info');
-    teamInfo.innerHTML = `
-        <div class="info-row">
-            <span class="info-label">Fase de grupos:</span>
-            <span class="info-value">Partido 1 vs. Equipo A</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Fase de grupos:</span>
-            <span class="info-value">Partido 2 vs. Equipo B</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Fase de grupos:</span>
-            <span class="info-value">Partido 3 vs. Equipo C</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Octavos de final:</span>
-            <span class="info-value">Posible vs. Segundo Grupo D</span>
-        </div>
-    `;
+    
+    // Vibrar en dispositivos móviles (si está disponible)
+    if (isMobile && navigator.vibrate) {
+        navigator.vibrate(200);
+    }
 }
 
 function closePanel() {
     document.getElementById('info-panel').style.display = 'none';
     document.getElementById('scanning-indicator').style.display = 'flex';
     
-    // Reiniciar el estado después de 3 segundos
+    // Reiniciar el estado
     setTimeout(function() {
         if (imageScanned) {
             document.getElementById('scanning-indicator').style.display = 'none';
-            document.getElementById('info-panel').style.display = 'flex';
+            document.getElementById('info-panel').style.display = 'block';
         }
     }, 3000);
     
@@ -142,45 +103,46 @@ function closePanel() {
         sphere.removeAttribute('animation');
     }
     
-    // Restaurar la información original de México
-    const teamInfo = document.querySelector('.team-info');
-    teamInfo.innerHTML = `
-        <div class="info-row">
-            <span class="info-label">Confederación:</span>
-            <span class="info-value">CONCACAF</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Apodo:</span>
-            <span class="info-value">El Tri</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Director técnico:</span>
-            <span class="info-value">Jaime Lozano</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Jugador estrella:</span>
-            <span class="info-value">Guillermo Ochoa</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Participaciones:</span>
-            <span class="info-value">17 Copas del Mundo</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Mejor resultado:</span>
-            <span class="info-value">Cuartos de final (1970 y 1986)</span>
-        </div>
-    `;
-    
     // Volver a simular el escaneo
     simulateImageScanning();
 }
 
+// Manejar la orientación del dispositivo
+function handleOrientation() {
+    if (isMobile) {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        if (isPortrait) {
+            document.body.classList.add('portrait');
+            document.body.classList.remove('landscape');
+        } else {
+            document.body.classList.add('landscape');
+            document.body.classList.remove('portrait');
+        }
+    }
+}
+
+// Escuchar cambios de orientación
+window.addEventListener('resize', handleOrientation);
+window.addEventListener('orientationchange', handleOrientation);
+
+// Inicializar la orientación
+handleOrientation();
+
 // En una implementación real con MindAR, conectaríamos los eventos reales:
-// const scene = document.querySelector('a-scene');
-// scene.addEventListener("targetFound", event => {
-//     onImageScanned();
-// });
-// 
-// scene.addEventListener("targetLost", event => {
-//     closePanel();
-// });
+/*
+const scene = document.querySelector('a-scene');
+scene.addEventListener("targetFound", event => {
+    onImageScanned();
+});
+
+scene.addEventListener("targetLost", event => {
+    closePanel();
+});
+*/
+
+// Prevenir el desplazamiento en iOS
+document.addEventListener('touchmove', function(e) {
+    if (e.scale !== 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
