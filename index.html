@@ -1,18 +1,83 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiencia Mundial - México</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-  </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: https://drive.google.com/uc?export=download&id=1DTmH3tHKyWsnrOzI-AXvzrSH1rw6RQS7;" 
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="intro-screen">
+        <div class="logo"></div>
+        <h1>¡Bienvenido al Próximo Mundial!</h1>
+        <p>Vive una experiencia de realidad aumentada con la emoción del fútbol mundial. Apunta con tu cámara al marcador oficial para comenzar.</p>
+        <button id="start-button">Comenzar Experiencia</button>
+        <p class="instructions">Asegúrate de permitir el acceso a tu cámara cuando te lo solicite</p>
+    </div>
+
+    <div id="scanning-indicator">
+        <span>Escaneando imagen</span>
+        <div class="scanning-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="info-panel">
+        <div class="team-header">
+            <div class="team-flag"></div>
+            <div class="team-name">MÉXICO</div>
+        </div>
+        
+        <div class="team-info">
+            <div class="info-row">
+                <span class="info-label">Confederación:</span>
+                <span class="info-value">CONCACAF</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Apodo:</span>
+                <span class="info-value">El Tri</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Director técnico:</span>
+                <span class="info-value">Jaime Lozano</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Jugador estrella:</span>
+                <span class="info-value">Guillermo Ochoa</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Participaciones:</span>
+                <span class="info-value">17 Copas del Mundo</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Mejor resultado:</span>
+                <span class="info-value">Cuartos de final (1970 y 1986)</span>
+            </div>
+        </div>
+        
+        <div id="button-container">
+            <button class="action-button" onclick="showPlayers()">👥 Jugadores Destacados</button>
+            <button class="action-button" onclick="showHistory()">📜 Historia</button>
+            <button class="action-button" onclick="showMatches()">📅 Próximos Partidos</button>
+            <button class="action-button" onclick="closePanel()">✖️ Cerrar</button>
+        </div>
+    </div>
+
+    <a-scene mindar-image="imageTargetSrc: /assets/targets.mind;" 
              embedded 
              color-space="sRGB" 
              vr-mode-ui="enabled: false" 
              device-orientation-permission-ui="enabled: true">
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex:0">
-      <a-sphere position="0 0 0" radius="0.25" color="#EF2D5E"></a-sphere>
+        <a-sphere position="0 0 0" radius="0.25" color="#EF2D5E" id="target-object"></a-sphere>
       </a-entity>
     </a-scene>
-  </body>
+
+    <script src="index.js"></script>
+</body>
 </html>
