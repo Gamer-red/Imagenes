@@ -1,69 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>Mundial - México</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundial 2026 - Inicio</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #004643, #001e1d);
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 90%;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 2em;
+      color: #adb5bd;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 1.1em;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .flag-strip {
+      display: flex;
+      gap: 16px;
+      margin-top: 3em;
+      justify-content: center;
+    }
+
+    .flag {
+      width: 40px;
+      height: auto;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 12px 24px;
+        width: 100%;
+      }
+
+      .flag {
+        width: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="intro-screen">
-        <div class="logo"></div>
-        <h1>¡Bienvenido al Mundial!</h1>
-        <p>Vive una experiencia de realidad aumentada con la emoción del fútbol mundial. Apunta con tu cámara al marcador oficial para comenzar.</p>
-        <button id="start-button">Comenzar</button>
-        <p class="instructions">Permite el acceso a tu cámara cuando te lo solicite</p>
+  <div class="container">
+    <h1>Explora el Mundial 2026</h1>
+    <p>Descubre contenido exclusivo escaneando los marcadores oficiales del torneo.</p>
+
+    <button class="btn" onclick="startAR()">Escanear Marcador</button>
+    <button class="btn" onclick="goToManual()">Manual de Usuario</button>
+
+    <div class="flag-strip">
+      <img src="https://flagcdn.com/w40/us.png" alt="EEUU" class="flag">
+      <img src="https://flagcdn.com/w40/mx.png" alt="México" class="flag">
+      <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" class="flag">
     </div>
+  </div>
 
-    <div id="scanning-indicator">
-        <span>Escaneando imagen</span>
-        <div class="scanning-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
+  <script>
+    function startAR() {
+      const permiso = confirm("¿Deseas activar la cámara para escanear el marcador?");
+      if (permiso) {
+        window.location.href = "ar.html";
+      }
+    }
 
-    <div id="info-panel">
-        <button id="close-button">×</button>
-        <div class="team-header">
-            <div class="team-flag"></div>
-            <div class="team-name">MÉXICO</div>
-        </div>
-        
-        <div class="team-info">
-            <div class="info-item">
-                <span class="info-label">DT:</span>
-                <span class="info-value">Jaime Lozano</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Jugador:</span>
-                <span class="info-value">Guillermo Ochoa</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Mundiales:</span>
-                <span class="info-value">17</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Mejor resultado:</span>
-                <span class="info-value">Cuartos</span>
-            </div>
-        </div>
-    </div>
-
-    <a-scene mindar-image="imageTargetSrc: /assets/targets.mind;" 
-             embedded 
-             color-space="sRGB" 
-             vr-mode-ui="enabled: false" 
-             device-orientation-permission-ui="enabled: true">
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      <a-entity mindar-image-target="targetIndex:0">
-        <a-sphere position="0 0 0" radius="0.25" color="#EF2D5E" id="target-object"></a-sphere>
-      </a-entity>
-    </a-scene>
-
-    <script src="index.js"></script>
+    function goToManual() {
+      window.location.href = "manual.html";
+    }
+  </script>
 </body>
 </html>

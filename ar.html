@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AR Mundial 2026</title>
+
+  <!-- A-Frame y MindAR -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #info-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: sans-serif;
+      font-size: 1em;
+      display: none;
+      z-index: 5;
+    }
+
+    #info-text {
+      margin-bottom: 12px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+    }
+
+    .info-button {
+      padding: 10px 16px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .info-button:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 600px) {
+      .info-button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor de info + botones -->
+  <div id="info-box">
+    <div id="info-text">
+      🇲🇽 México será una de las sedes del Mundial 2026, con partidos en CDMX, Guadalajara y Monterrey.
+    </div>
+    <div class="button-group">
+      <button class="info-button">🎥 Video</button>
+      <button class="info-button">📊 Estadísticas</button>
+      <button class="info-button">❓ Trivias</button>
+      <button class="info-button">🌀 Animación 3D</button>
+    </div>
+  </div>
+
+  <!-- Escena AR -->
+  <a-scene
+    mindar-image="imageTargetSrc: ./assets/targets.mind;"
+    vr-mode-ui="enabled:false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <a-assets></a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!-- Bandera de México -->
+    <a-entity mindar-image-target="targetIndex: 0" id="mexico-target">
+      <a-sphere position="0 0 0" radius="0.25" color="#EF2D5E"></a-sphere>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    const target = document.getElementById('mexico-target');
+    const infoBox = document.getElementById('info-box');
+
+    target.addEventListener('targetFound', () => {
+      infoBox.style.display = 'block';
+    });
+
+    target.addEventListener('targetLost', () => {
+      infoBox.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
