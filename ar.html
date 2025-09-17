@@ -8,74 +8,7 @@
   <!-- A-Frame y MindAR -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-  <style>
-    /* Estilos para los contenedores de contenido */
-    .content-container {
-      display: none; 
-      position: fixed; 
-      background: rgba(255, 255, 255, 0.95); 
-      padding: 20px; 
-      z-index: 999; 
-      border: 2px solid #333; 
-      border-radius: 10px;
-      max-width: 80%;
-      max-height: 80%;
-      overflow: auto;
-    }
-    
-    .close-btn {
-      float: right; 
-      font-size: 20px; 
-      background: red; 
-      color: white; 
-      border: none; 
-      padding: 5px 10px; 
-      cursor: pointer;
-    }
-    
-    #video-container {
-      background: rgba(0,0,0,0.9);
-    }
-    
-    #info-box {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px;
-      border-radius: 10px;
-      z-index: 998;
-    }
-    
-    .button-group {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .info-button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      background: #4CAF50;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    
-    .trivia-option {
-      margin: 5px;
-      padding: 8px 15px;
-      background: #f0f0f0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    .trivia-option:hover {
-      background: #e0e0e0;
-    }
-  </style>
+   <link rel="stylesheet" href="ar.css">
 </head>
 <body>
 
@@ -96,7 +29,16 @@
     <video id="video-player" width="100%" controls>
       Tu navegador no soporta video HTML5.
     </video>
+
+    <div class="video-filters">
+      <button class="filter-btn" data-filter="normal">Normal</button>
+      <button class="filter-btn" data-filter="sepia">Sepia</button>
+      <button class="filter-btn" data-filter="grayscale">Blanco y Negro</button>
+      <button class="filter-btn" data-filter="invert">Invertir Colores</button>
   </div>
+  </div>
+
+
 
   <div id="stats-container" class="content-container">
     <button class="close-btn" id="close-stats">X</button>
@@ -150,7 +92,7 @@
     </a-entity>
     <a-text 
       value="México: Sede del Mundial 2026\nCDMX, Guadalajara y Monterrey"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -167,7 +109,7 @@
     </a-entity>
     <a-text 
       value="Argentina: Campeona 2022\n3 títulos mundiales"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -184,7 +126,7 @@
     </a-entity>
     <a-text 
       value="Canadá: Co-anfitrión 2026\nSegunda participación"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -201,7 +143,7 @@
     </a-entity>
     <a-text 
       value="Australia: Potencia de Oceanía\n6 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -218,7 +160,7 @@
     </a-entity>
     <a-text 
       value="Brasil: Pentacampeón\nMáximo ganador"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -235,7 +177,7 @@
     </a-entity>
     <a-text 
       value="Colombia: Cafeteros\n6 mundiales"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -252,7 +194,7 @@
     </a-entity>
     <a-text 
       value="Corea del Sur: Semifinal 2002\n11 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -269,7 +211,7 @@
     </a-entity>
     <a-text 
       value="Ecuador: Tricolor\n4 mundiales"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -286,7 +228,7 @@
     </a-entity>
     <a-text 
       value="EEUU: Co-anfitrión 2026\nSemifinal 1930"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -303,7 +245,7 @@
     </a-entity>
     <a-text 
       value="Irán: Potencia asiática\n6 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -320,7 +262,7 @@
     </a-entity>
     <a-text 
       value="Japón: Samuráis Azules\n7 mundiales"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -337,7 +279,7 @@
     </a-entity>
     <a-text 
       value="Jordania: Nunca en Mundial\nAspirante 2026"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -354,7 +296,7 @@
     </a-entity>
     <a-text 
       value="Marruecos: Semifinal 2022\n6 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -371,7 +313,7 @@
     </a-entity>
     <a-text 
       value="Nueva Zelanda: All Whites\n2 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -388,7 +330,7 @@
     </a-entity>
     <a-text 
       value="Paraguay: Albirroja\nCuartos 2010"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -405,7 +347,7 @@
     </a-entity>
     <a-text 
       value="Túnez: Águilas de Cartago\n6 participaciones"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -422,7 +364,7 @@
     </a-entity>
     <a-text 
       value="Uruguay: Primer campeón\n4 títulos mundiales"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"
@@ -439,7 +381,7 @@
     </a-entity>
     <a-text 
       value="Uzbekistán: Nunca en Mundial\nAspirante 2026"
-      position="0 0.5 0"
+      position="0 0.25 0"
       align="center"
       color="black"
       width="1"

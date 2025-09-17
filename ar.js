@@ -350,7 +350,7 @@ const countryData = {
     }
   },
   'tunes': {
-    video: './assets/videos/tunes.mp4',
+    video: './assets/videos/tunez.mp4',
     stats: {
       title: '📊 Estadísticas de Túnez',
       content: `
@@ -426,6 +426,8 @@ let currentCountry = null;
 let animationActive = false;
 let animationId = null;
 let startTime = null;
+let currentFilter = 'normal';
+
 
 // Esperar a que cargue el DOM
 document.addEventListener('DOMContentLoaded', function() {
@@ -468,6 +470,31 @@ document.addEventListener('DOMContentLoaded', function() {
   const triviaTitle = document.getElementById('trivia-title');
   const triviaContent = document.getElementById('trivia-content');
   const triviaFeedback = document.getElementById('trivia-feedback');
+
+  // Configurar botones de filtros
+      const filterButtons = document.querySelectorAll('.filter-btn');
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remover clase active de todos los botones
+          filterButtons.forEach(b => b.classList.remove('active'));
+          
+          // Añadir clase active al botón clickeado
+          this.classList.add('active');
+          
+          // Aplicar filtro
+          const filter = this.getAttribute('data-filter');
+          currentFilter = filter;
+          
+          // Remover todas las clases de filtro
+          videoPlayer.classList.remove('sepia', 'grayscale', 'invert');
+          
+          // Aplicar nuevo filtro si no es "normal"
+          if (filter !== 'normal') {
+            videoPlayer.classList.add(filter);
+          }
+        });
+      });
   
   // Configurar eventos de botones
   videoButton.addEventListener('click', () => {
@@ -477,6 +504,20 @@ document.addEventListener('DOMContentLoaded', function() {
     videoTitle.textContent = `Video de ${currentCountry.charAt(0).toUpperCase() + currentCountry.slice(1)}`;
     videoPlayer.innerHTML = `<source src="${data.video}" type="video/mp4">`;
     videoContainer.style.display = 'block';
+
+     videoPlayer.classList.remove('sepia', 'grayscale', 'invert');
+        if (currentFilter !== 'normal') {
+          videoPlayer.classList.add(currentFilter);
+        }
+      
+     // Activar botón del filtro actual
+        filterButtons.forEach(btn => {
+          if (btn.getAttribute('data-filter') === currentFilter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
     
     // Recargar el video para que cargue la nueva fuente
     videoPlayer.load();
