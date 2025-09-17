@@ -25,7 +25,7 @@
   <div id="video-container" style="display: none; position: fixed; top: 10%; left: 10%; width: 20%; background: rgba(0,0,0,0.9); padding: 20px; z-index: 999;">
   <button id="close-video" style="float: right; font-size: 20px; background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">X</button>
   <video id="video-player" width="100%" controls>
-    <source src="./assets/video.mp4" type="video/mp4">
+    <source src="./assets/videos/video.mp4" type="video/mp4">
     Tu navegador no soporta video HTML5.
   </video>
 </div>
@@ -59,130 +59,47 @@
     vr-mode-ui="enabled:false"
     device-orientation-permission-ui="enabled: false"
   >
-    <a-assets>
-      <a-asset-item id="modelo-glb" src="./assets/Bandera_Mexico.glb"></a-asset-item>
-    </a-assets>
+  <a-assets>
+    <a-asset-item id="modelo-mexico" src="./assets/banderas/Bandera_Mexico.glb"></a-asset-item>
+    <a-asset-item id="modelo-argentina" src="./assets/banderas/Bandera_Argentina.glb"></a-asset-item>
+  </a-assets>
 
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0" id="mexico-target">
-        <a-entity 
-          id="modelo-animado"
-          gltf-model="#modelo-glb" 
-          position="0 -0.25 0" 
-          scale="0.05 0.05 0.05" 
-          rotation="0 0 0">
-      </a-entity>
-      <!-- Texto en AR -->
-        <a-text 
-          value="México será una de las sedes del Mundial 2026,\ncon partidos en CDMX, Guadalajara y Monterrey."
-          position="0 0.5 0"
-          align="center"
-          color="black"
-          width="1"
-        ></a-text>
+  <!-- MÉXICO -->
+  <a-entity mindar-image-target="targetIndex: 12" id="mexico-target">
+    <a-entity 
+      gltf-model="#modelo-mexico" 
+      position="0 -0.25 0" 
+      scale="0.05 0.05 0.05" 
+      rotation="0 0 0">
     </a-entity>
+    <a-text 
+      value="México será una de las sedes del Mundial 2026,\ncon partidos en CDMX, Guadalajara y Monterrey."
+      position="0 0.5 0"
+      align="center"
+      color="black"
+      width="1"
+    ></a-text>
+  </a-entity>
 
+  <!-- ARGENTINA -->
+  <a-entity mindar-image-target="targetIndex: 1" id="argentina-target">
+    <a-entity 
+      gltf-model="#modelo-argentina" 
+      position="-2.5 -0.25 0" 
+      scale="0.05 0.05 0.05" 
+      rotation="0 0 0">
+    </a-entity>
+    <a-text 
+      value="Argentina, campeón del mundo 2022,\nparticipará en el Mundial 2026."
+      position="0 0.5 0"
+      align="center"
+      color="blue"
+      width="1"
+    ></a-text>
+  </a-entity>
   </a-scene>
-
-  <script>
-    const target = document.getElementById('mexico-target');
-    const infoBox = document.getElementById('info-box');
-
-    target.addEventListener('targetFound', () => {
-      infoBox.style.display = 'block';
-    });
-
-    target.addEventListener('targetLost', () => {
-      infoBox.style.display = 'none';
-    }); 
-      // 🎥 Funcionalidad del botón de video
-    const videoButton = document.querySelectorAll('.info-button')[0]; // Primer botón
-    const videoContainer = document.getElementById('video-container');
-    const closeVideoBtn = document.getElementById('close-video');
-    const videoPlayer = document.getElementById('video-player');
-    const statsButton = document.querySelectorAll('.info-button')[1]; // Segundo botón
-    const statsContainer = document.getElementById('stats-container');
-    const closeStatsBtn = document.getElementById('close-stats');
-    const triviaButton = document.querySelectorAll('.info-button')[2]; // Tercer botón
-    const triviaContainer = document.getElementById('trivia-container');
-    const closeTriviaBtn = document.getElementById('close-trivia');
-    const triviaOptions = document.querySelectorAll('.trivia-option');
-    const triviaFeedback = document.getElementById('trivia-feedback');
-    const animButton = document.querySelectorAll('.info-button')[3]; // Botón animación 3D
-    const modelo = document.getElementById('modelo-animado');
-
-    videoButton.addEventListener('click', () => {
-      videoContainer.style.display = 'block';
-      videoPlayer.play();
-    });
-
-    closeVideoBtn.addEventListener('click', () => {
-      videoContainer.style.display = 'none';
-      videoPlayer.pause();
-      videoPlayer.currentTime = 0;
-    });
-    statsButton.addEventListener('click', () => {
-      statsContainer.style.display = 'block';
-    });
-
-    closeStatsBtn.addEventListener('click', () => {
-      statsContainer.style.display = 'none';
-    });
-
-    triviaButton.addEventListener('click', () => {
-      triviaContainer.style.display = 'block';
-      triviaFeedback.textContent = '';
-      triviaOptions.forEach(btn => btn.disabled = false);
-    });
-
-    closeTriviaBtn.addEventListener('click', () => {
-      triviaContainer.style.display = 'none';
-    });
-
-    triviaOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        const isCorrect = option.getAttribute('data-correct') === 'true';
-        triviaFeedback.textContent = isCorrect ? '✅ ¡Correcto!' : '❌ Incorrecto. Inténtalo de nuevo.';
-        triviaFeedback.style.color = isCorrect ? 'green' : 'red';
-        triviaOptions.forEach(btn => btn.disabled = true); // Desactiva botones después de responder
-      });
-    let animationActive = false;
-let animationId = null;
-let startTime = null;
-
-function animateModel(time) {
-  if (!startTime) startTime = time;
-  const elapsed = time - startTime;
-
-  // Movimiento vertical oscilante con función seno
-  const amplitude = 0.1; // cuánto se mueve arriba y abajo
-  const speed = 0.005; // velocidad de oscilación
-  const newY = -0.25 + amplitude * Math.sin(elapsed * speed);
-
-  modelo.setAttribute('position', `0 ${newY} 0`);
-
-  if (animationActive) {
-    animationId = requestAnimationFrame(animateModel);
-  }
-}
-
-animButton.addEventListener('click', () => {
-  if (!animationActive) {
-    animationActive = true;
-    startTime = null;
-    animationId = requestAnimationFrame(animateModel);
-  } else {
-    animationActive = false;
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-      animationId = null;
-    }
-    // Reset posición original cuando pares la animación
-    modelo.setAttribute('position', '0 -0.25 0');
-  }
-});
-    });
-  </script>
+  <script src="ar.js"></script>
 </body>
 </html>
