@@ -1,0 +1,52 @@
+ body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #info-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: sans-serif;
+      font-size: 1em;
+      display: none;
+      z-index: 5;
+    }
+
+    #info-text {
+      margin-bottom: 12px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+    }
+
+    .info-button {
+      padding: 10px 16px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .info-button:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 600px) {
+      .info-button {
+        flex: 1 1 100%;
+      }
+    }

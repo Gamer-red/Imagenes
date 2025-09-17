@@ -1,0 +1,74 @@
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #004643, #001e1d);
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 90%;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 2em;
+      color: #adb5bd;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 1.1em;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .flag-strip {
+      display: flex;
+      gap: 16px;
+      margin-top: 3em;
+      justify-content: center;
+    }
+
+    .flag {
+      width: 40px;
+      height: auto;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 12px 24px;
+        width: 100%;
+      }
+
+      .flag {
+        width: 30px;
+      }
+    }
